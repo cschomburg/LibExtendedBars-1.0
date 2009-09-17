@@ -1,0 +1,52 @@
+LibExtendedBars-1.0
+===============
+
+Status bars which can grow in any direction
+
+Core API
+--------
+
+### local LEB = LibStub("LibExtendedBars-1.0") ###
+Fetch the library
+
+### bar = LEB.CreateStatusBar([name] [, parent] [, anchor] [, orientation]) ###
+Creates a new ExtendedBar
+
+*	name: the name of the frame (optional)
+*	parent: the parent of the frame (optional)
+*	anchor: the start point of the growth (default: "LEFT")
+*	orientation: one of "HORIZONTAL", "VERTICAL" or "BOTH" (default: "HORIZONTAL")
+
+### bar = LEB.CreateStatusBar([config]) ###
+Creates a new ExtendedBar
+
+*	config = table holding additional configuration options (optional)
+
+ExtendedBar functions
+-------------------
+### Inherited from StatusBar ###
+*	GetMinMaxValues(), SetMinMaxValues(min, max)
+*	GetOrientation(), SetOrientation(orientation)
+*	GetStatusBarColor(), SetStatusBarColor(r, g, b, a)
+*	GetStatusBarTexture(), SetStatusBarTexture(texture)
+*	GetValue(), SetValue(value)
+
+### bar:GetAnchor() ###
+Returns the current growth anchor
+
+### bar:SetAnchor([anchor]) ###
+Sets the growth anchor
+
+*	anchor: the new growth anchor (default: "LEFT")
+
+Example
+-------
+	local LEB = LibStub("LibExtendedBars-1.0")
+	local bar = LEB.CreateStatusBar("MyStatusBar", UIParent, "RIGHT", "HORIZONTAL")
+	bar:SetStatusBarTexture(myTexture)
+	bar:SetStatusBarColor(0, 1, 0)
+	bar:SetValue(0.25)
+	bar:SetWidth(200)
+	bar:SetHeight(24)
+	bar:SetPoint("CENTER")
+Creates a status bar in the center of the screen which is 25% filled from the right
