@@ -9,7 +9,7 @@ Core API
 ### local LEB = LibStub("LibExtendedBars-1.0") ###
 Fetch the library
 
-### bar = LEB.CreateStatusBar([name] [, parent] [, anchor] [, orientation]) ###
+### bar = LEB.CreateExtendedBar([name] [, parent] [, anchor] [, orientation]) ###
 Creates a new ExtendedBar
 
 *	name: the name of the frame (optional)
@@ -17,7 +17,7 @@ Creates a new ExtendedBar
 *	anchor: the start point of the growth (default: "LEFT")
 *	orientation: one of "HORIZONTAL", "VERTICAL" or "BOTH" (default: "HORIZONTAL")
 
-### bar = LEB.CreateStatusBar([config]) ###
+### bar = LEB.CreateExtendedBar([config]) ###
 Creates a new ExtendedBar
 
 *	config = table holding additional configuration options (optional)
@@ -42,7 +42,7 @@ Sets the growth anchor
 Example
 -------
 	local LEB = LibStub("LibExtendedBars-1.0")
-	local bar = LEB.CreateStatusBar("MyStatusBar", UIParent, "RIGHT", "HORIZONTAL")
+	local bar = LEB.CreateExtendedBar("MyStatusBar", UIParent, "RIGHT", "HORIZONTAL")
 	bar:SetStatusBarTexture(myTexture)
 	bar:SetStatusBarColor(0, 1, 0)
 	bar:SetValue(0.25)
