@@ -6,7 +6,7 @@ License: GPL 2
 Description: Status bars which can grow in any direction
 ]]
 
-local lib = LibStub:NewLibrary("LibExtendedBars-1.0", 1)
+local lib = LibStub:NewLibrary("LibExtendedBars-1.0", 2)
 if(not lib) then return end
 
 local data, defaults = {}, {__index={
