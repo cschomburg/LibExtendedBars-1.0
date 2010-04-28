@@ -1,7 +1,8 @@
 LibExtendedBars-1.0
 ===============
 
-Status bars which can grow in any direction
+Status bars which can grow in any direction.
+They also simulate the old behaviour of cropping instead of stretching by default.
 
 Core API
 --------

@@ -15,10 +15,13 @@ local data, defaults = {}, {__index={
 	min = 0,
 	max = 1,
 	value = 1,
+	horizTile = false,
+	vertTile = false,
+	mode = "crop",
 }}
 
 local Prototype = CreateFrame"Frame"
-local mt_prototype = {__index = Prototype}
+Prototype.__index = Prototype
 
 local function calcInsets(val, first, second)
 	val = 1-val
@@ -40,12 +43,14 @@ local function updateBar(self)
 	var = (var <= 0 and 1e-5) or (var > 1 and 1) or var
 	local x, y = cfg.sizeX and var or 1, cfg.sizeY and var or 1
 
-	local left, right = calcInsets(x, cfg.calcLeft, cfg.calcRight)
-	local top, bottom = calcInsets(y, cfg.calcTop, cfg.calcBottom)
-
 	cfg.bar:SetWidth(width*x)
 	cfg.bar:SetHeight(height*y)
-	cfg.bar:SetTexCoord(left, 1-right, top, 1-bottom)
+
+	if(cfg.mode == "crop") then
+		local left, right = calcInsets(x, cfg.calcLeft, cfg.calcRight)
+		local top, bottom = calcInsets(y, cfg.calcTop, cfg.calcBottom)
+		cfg.bar:SetTexCoord(left, 1-right, top, 1-bottom)
+	end
 end
 
 function lib.CreateExtendedBar(name, parent, anchor, orientation)
@@ -56,7 +61,7 @@ function lib.CreateExtendedBar(name, parent, anchor, orientation)
 	end
 
 	local cfg = setmetatable(cfg, defaults)
-	local frame = setmetatable(CreateFrame("Frame", nil, cfg.parent), mt_prototype)
+	local frame = setmetatable(CreateFrame("Frame", nil, cfg.parent), Prototype)
 
 	local bar = frame:CreateTexture(nil, "OVERLAY")
 	cfg.bar = bar
@@ -105,6 +110,8 @@ end
 
 function Prototype:SetStatusBarTexture(...)
 	data[self].bar:SetTexture(...)
+	data[self].bar:SetHorizTile(cfg.horizTile)
+	data[self].bar:SetVertTile(cfg.vertTile)
 	updateBar(self)
 end
 
@@ -113,10 +120,10 @@ function Prototype:SetValue(value)
 	updateBar(self)
 end
 
-function Prototype:GetFrameType() return "ExtendedBar" end
+function Prototype:GetObjectType() return "ExtendedBar" end
 function Prototype:GetAnchor() return data[self].anchor end
 function Prototype:GetMinMaxValues() return data[self].min, data[self].max end
 function Prototype:GetOrientation() return data[self].orient end
 function Prototype:GetStatusBarColor() return data[self].bar:GetVertexColor() end
-function Prototype:GetStatusBarTexture() return data[self].bar:GetTexture() end
+function Prototype:GetStatusBarTexture() return data[self].bar end
 function Prototype:GetValue() return data[self].value end
